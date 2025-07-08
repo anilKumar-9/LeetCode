@@ -15,27 +15,17 @@
  */
 class Solution {
     public TreeNode bstFromPreorder(int[] preorder) {
-        TreeNode root=null;
-        for(int i=0;i<preorder.length;i++)
-        {
-            root=insertInto(root,preorder[i]);
-        }
-        return root;
+        return insertInto(preorder,new int[1],Integer.MAX_VALUE);
     }
-    static TreeNode insertInto(TreeNode root,int n)
+    static TreeNode insertInto(int []preorder,int []i,int bound)
     {
-        if(root==null)
-        {
-            return new TreeNode(n);
-        }
-        if(n<=root.val)
-        {
-            root.left=insertInto(root.left,n);
-        }
-        else
-        {
-            root.right=insertInto(root.right,n);
-        }
-        return root;
+      if(i[0]==preorder.length||preorder[i[0]]>bound)
+      {
+        return null;
+      }
+      TreeNode node=new TreeNode(preorder[i[0]++]);
+      node.left=insertInto(preorder,i,node.val);
+      node.right=insertInto(preorder,i,bound);
+      return node;
     }
 }
