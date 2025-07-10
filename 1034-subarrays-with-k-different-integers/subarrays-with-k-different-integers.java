@@ -21,11 +21,7 @@ class Solution {
                 }
                 left++;
             }
-            if(map.size()<=k)
-            {
-                count+=right-left+1;
-                
-            }
+            count+=right-left+1;
             right++;
         }
         return count;
