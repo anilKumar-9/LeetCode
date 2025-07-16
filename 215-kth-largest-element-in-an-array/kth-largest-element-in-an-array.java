@@ -5,13 +5,13 @@ class Solution {
         for(int i=0;i<n;i++)
         {
             pq.add(nums[i]);
-            int size=pq.size();
-            if(size>k)
+            
+            if(pq.size()>k)
             {
-                pq.remove();
+                pq.poll();
             }
                
         }
-        return pq.element();
+        return pq.poll();
     }
 }
