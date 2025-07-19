@@ -4,7 +4,7 @@ class Solution {
        while(r<n-1)
        {
         int far=0;
-        for(int ind=0;ind<=r;ind++)
+        for(int ind=l;ind<=r;ind++)
         {
             far=Math.max(ind+nums[ind],far);
         }
