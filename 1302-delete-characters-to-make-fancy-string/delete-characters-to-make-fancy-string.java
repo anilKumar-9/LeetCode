@@ -11,9 +11,10 @@ class Solution {
                 prevCharCount = 0;
             }
 
-            if (++prevCharCount > 2) continue;
-            
-            arr[k++] = arr[i];
+           if(++prevCharCount<3)
+           {
+            arr[k++]=arr[i];
+           }
         }
 
         return new String(arr, 0, k);
