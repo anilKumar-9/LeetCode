@@ -2,7 +2,7 @@ class Solution {
     public boolean validPalindrome(String s) {
        
        int n=s.length(),i=0,j=s.length()-1;
-       while(i<=j)
+       while(i<j)
        {
         if(s.charAt(i)!=s.charAt(j))
         {
@@ -15,7 +15,7 @@ class Solution {
     }
     static boolean palindrome(String s,int start,int end)
     {
-        while(start<=end)
+        while(start<end)
         {
             if(s.charAt(start++)!=s.charAt(end--))
             {
