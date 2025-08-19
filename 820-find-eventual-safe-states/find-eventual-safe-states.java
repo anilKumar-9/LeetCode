@@ -7,21 +7,17 @@ class Solution {
        {
         adjList.add(new ArrayList<>());
        }
+        int []incoming=new int[n];
+       
        for(int i=0;i<n;i++)
        {
          for(int it:graph[i])
          {
             adjList.get(it).add(i);
+            incoming[i]++;
          }
        }
-      int []incoming=new int[n];
-       for(int i=0;i<n;i++ )
-       {
-        for(int it: adjList.get(i))
-        {
-            incoming[it]++;
-        }
-       }
+     
         Queue<Integer> q=new LinkedList<>();
        for(int i=0;i<n;i++)
        {
