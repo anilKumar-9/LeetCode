@@ -1,20 +1,13 @@
 class Solution {
     public int minFlipsMonoIncr(String s) {
-        int n=s.length();
-        int min=n;
-        int flips=0,ones=0;
-        for(int i=0;i<n;i++)
-        {
-            if(s.charAt(i)=='1')
-            {
-                ones++;
+         int res = 0, cnt = 0;
+        for(char ch : s.toCharArray()){
+            if(ch == '1') cnt ++;
+            else if(cnt != 0){
+                res++;
+                cnt--;
             }
-            else
-            {
-                flips++;
-            }
-            flips=Math.min(ones,flips);
         }
-        return flips;
+        return res;
     }
 }
