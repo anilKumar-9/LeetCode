@@ -1,8 +1,19 @@
 class Solution {
     public int rob(int[] nums) {
-        int [] dp=new int[nums.length+1];
-        Arrays.fill(dp,-1);
-        return helperFun(nums.length-1,nums,dp);
+        int [] dp=new int[nums.length];
+        dp[0]=nums[0];
+        int neg=0;
+        for(int i=1;i<nums.length;i++)
+        {
+            int take=nums[i];
+            if(i>1)
+            {
+                take+=dp[i-2];
+            }
+            int notake=0+dp[i-1];
+            dp[i]=Math.max(take,notake);
+        }
+        return dp[nums.length-1];
     }
 
     static int helperFun(int ind,int[]nums,int []dp)
