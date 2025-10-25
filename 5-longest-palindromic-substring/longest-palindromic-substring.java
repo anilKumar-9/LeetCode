@@ -20,7 +20,7 @@ class Solution {
 					continue;
 				}
 				   String sub=str.substring(i,j+1);
-					if(isPalindrome(sub))
+					if(isPalindrome(sub)&&j-i+1>max)
 					{
 						if(sub.length()>max)
 						{
