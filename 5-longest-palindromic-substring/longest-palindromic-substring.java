@@ -11,29 +11,23 @@ class Solution {
 
 		for(int i=0;i<n;i++)
 		{
-			for(int j=n-1;j>=0;j--)
+			for(int j=n-1;j>=i;j--)
 			{
-				if(j>=i)
-				{
+				
 				if(str.charAt(i)!=str.charAt(j))
 				{
 					continue;
 				}
 				   String sub=str.substring(i,j+1);
-					if(isPalindrome(sub)&&j-i+1>max)
+                   int len=sub.length();
+					if(isPalindrome(sub)&&len>=max)
 					{
 						if(sub.length()>max)
 						{
-							max=sub.length();
+							max=len;
 							ans=sub;
 						}
-					}
-				}
-				else
-				{
-					break;
-				}
-
+					}		
 			}
 		}
 		return ans;
