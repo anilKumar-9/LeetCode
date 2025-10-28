@@ -1,48 +1,38 @@
 class Solution {
     public List<Integer> findAnagrams(String s, String p) {
-        if(s.length()<p.length())
-        {
-            return new ArrayList<>();
-        }
-        int k=p.length();
-        List<Integer> res=new ArrayList<>();
-        if(checkAnagram(p,s.substring(0,k)))
-        {
-            res.add(0);
-        }
-        int p1=0;
+        List<Integer> result = new ArrayList<>();
 
-        for(int p2=k;p2<s.length();p2++)
+        int sLength = s.length();
+        int pLength = p.length();
+        if(sLength<pLength)
         {
-            p1++;
-            if(checkAnagram(s.substring(p1,p2+1),p))
-            {
-                res.add(p1);
+            return result;
+        }
+
+        // Step 1: Frequency arrays for pattern 'p' and current window in 's'
+        int[] pFreq = new int[26]; // Frequency of characters in p
+        int[] sFreq = new int[26]; // Frequency of characters in current window of s
+
+        // Step 2: Fill the frequency for p and the first window of s
+        for (int i = 0; i < pLength; i++) {
+            pFreq[p.charAt(i) - 'a']++;
+            sFreq[s.charAt(i) - 'a']++;
+        }
+
+        // Step 3: Start sliding the window over s
+        for (int i = 0; i <= sLength - pLength; i++) {
+            // If both frequency arrays match, it's an anagram
+            if (Arrays.equals(pFreq, sFreq)) {
+                result.add(i);
+            }
+
+            // Step 4: Slide the window
+            if (i + pLength < sLength) {
+                sFreq[s.charAt(i) - 'a']--; // Remove the character going out of the window
+                sFreq[s.charAt(i + pLength) - 'a']++; // Add the character coming into the window
             }
         }
-        return res;
-    }
 
-    static boolean checkAnagram(String a,String b)
-    {
-        int [] hash=new int[26];
-
-        for(int i=0;i<a.length();i++)
-        {
-            hash[a.charAt(i)-'a']++;
-        }
-        for(int i=0;i<b.length();i++)
-        {
-            hash[b.charAt(i)-'a']--;
-        }
-
-        for(int i=0;i<26;i++)
-        {
-            if(hash[i]!=0)
-            {
-                return false;
-            }
-        }
-        return true;
+        return result;
     }
 }
