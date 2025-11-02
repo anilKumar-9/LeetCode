@@ -33,6 +33,6 @@ class Solution {
             }
         }
         res=dp[n][m];
-        return n-res+m-res;
+        return (n-res)+(m-res);
     }
 }
