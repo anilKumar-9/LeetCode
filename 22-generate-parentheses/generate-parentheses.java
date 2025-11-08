@@ -1,21 +1,23 @@
 class Solution {
     public List<String> generateParenthesis(int n) {
         List<String> outer=new ArrayList<>();
-        generateParanthesis(n,"",outer);
+        generateParanthesis(n,"",0,0,outer);
         return outer;
     }
-    static void generateParanthesis(int n,String curr,List<String> outer)
-    {
+    static void generateParanthesis(int n,String curr,
+                                     int open ,int close,
+                                    List<String> outer){
         if(curr.length()==2*n)
         {
-            if(isValidParanthesis(curr))
             outer.add(curr);
-
             return ;
         }
 
-        generateParanthesis(n,curr+"(",outer);
-        generateParanthesis(n,curr+")",outer);
+        if(open<n)
+        generateParanthesis(n,curr+"(",open+1,close,outer);
+
+        if(close<open)
+        generateParanthesis(n,curr+")",open,close+1,outer);
     }
 
     static boolean isValidParanthesis(String curr)
