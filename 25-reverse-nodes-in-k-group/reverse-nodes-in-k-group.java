@@ -43,11 +43,9 @@ class Solution {
             ListNode kthNode=kthNode(temp,k);
             if(kthNode==null)
             {
-                if(prev!=null)
-                {
+                
                     prev.next=temp;
-                    
-                }
+           
                 break;
             }
 
