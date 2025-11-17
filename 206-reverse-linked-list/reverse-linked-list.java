@@ -14,26 +14,11 @@ class Solution {
         {
             return head;
         }
-        ListNode temp=head.next;
-        Stack<ListNode> st=new Stack<>();
-        while(temp!=null)
-        {
-            head.next=null;
-            st.push(head);
-            head=temp;
-            temp=temp.next;
-        }
-        st.push(head);
-        
-        head=st.pop();
-        temp=head;
+        ListNode newNode=reverseList(head.next);
+        ListNode front=head.next;
+        front.next=head;
+        head.next=null;
 
-        while(!st.isEmpty())
-        {
-            temp.next=st.pop();
-            temp=temp.next;
-        }
-        
-        return head;
+        return newNode;
     }
 }
