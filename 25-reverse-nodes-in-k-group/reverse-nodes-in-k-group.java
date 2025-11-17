@@ -9,55 +9,27 @@
  * }
  */
 class Solution {
-    static ListNode reverse(ListNode head)
-    {
-        ListNode temp=head;
-        ListNode prev=null;
-        while(temp!=null)
-        {
-            ListNode front=temp.next;
-            temp.next=prev;
-            prev=temp;
-            temp=front;
-        }
-        return prev;
-
-    }
-
-    static ListNode kthNode(ListNode head,int k)
-    {
-        k--;
-        ListNode temp=head;
-        while(temp!=null&&k-->0)
-        {
-            temp=temp.next;
-        }
-        return temp;
-    }
     public ListNode reverseKGroup(ListNode head, int k) {
         ListNode temp=head;
         ListNode prev=null;
-
         while(temp!=null)
         {
-            ListNode kthNode=kthNode(temp,k);
+            ListNode kthNode=findKthNode(temp,k);
             if(kthNode==null)
             {
-                
-                    prev.next=temp;
-           
+                if(prev!=null)
+                prev.next=temp;
+
                 break;
             }
-
             ListNode nextNode=kthNode.next;
             kthNode.next=null;
-
             reverse(temp);
-            if(head==temp)
+            if(temp==head)
             {
                 head=kthNode;
             }
-            else 
+            else
             {
                 prev.next=kthNode;
             }
@@ -65,5 +37,31 @@ class Solution {
             temp=nextNode;
         }
         return head;
+    }
+
+    static ListNode reverse(ListNode head)
+    {
+        ListNode temp=head;
+        ListNode prev=null;
+
+        while(temp!=null)
+        {
+            ListNode front=temp.next;
+            temp.next=prev;
+            prev=temp;
+            temp=front;
+        }
+        return temp;
+    }
+
+    static ListNode findKthNode(ListNode head,int k)
+    {
+        ListNode temp=head;
+        k--;
+        while(k-->0&&temp!=null)
+        {
+            temp=temp.next;
+        }
+        return temp;
     }
 }
