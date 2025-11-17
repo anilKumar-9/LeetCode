@@ -9,13 +9,14 @@ class Solution {
         Arrays.sort(hash,(a,b)->{
             return (b+a).compareTo(a+b);
         });
+       
+        String ans="";
+        for(int i=0;i<n;i++)
+        {
         if(hash[0].equals("0"))
         {
             return "0";
         }
-        String ans="";
-        for(int i=0;i<n;i++)
-        {
             ans+=hash[i];
         }
         return ans;
