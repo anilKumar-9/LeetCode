@@ -9,7 +9,6 @@ class Solution {
         int j=0;
         int n=s.length();
         int m=t.length();
-        int count=0;
 
         while(i<n&&j<m)
         {
@@ -17,13 +16,13 @@ class Solution {
             {
                 i++;
                 j++;
-                count++;
+               
             }
             else 
             {
                 j++;
             }
         }
-        return count==n;
+        return i==n;
     }
 }
