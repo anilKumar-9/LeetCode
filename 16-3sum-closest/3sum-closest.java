@@ -4,8 +4,12 @@ class Solution {
         int n=nums.length;
         int res=Integer.MIN_VALUE;
         int minDiff=Integer.MAX_VALUE;
-        for(int i=0;i<n;i++)
+        for(int i=0;i<n-2;i++)
         {
+            if(i>0&&nums[i]==nums[i-1])
+            {
+                continue;
+            }
             int l=i+1,r=n-1;
             while(l<r)
             {
@@ -17,9 +21,9 @@ class Solution {
                     minDiff=diff;
                     res=val;
                 }
-                else if(diff==minDiff)
+                 if(diff==minDiff)
                 {
-                    res=Math.max(res,val);
+                    res=Math.min(res,val);
                 }
                 if(val>target)
                 {
