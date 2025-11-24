@@ -21,18 +21,15 @@ class Solution {
             temp=temp.next;
             length++;
         }
+        temp.next=head;
+        temp=head;
         k%=length;
-        for(int i=0;i<k;i++){
-            temp=head;
-            while(temp.next.next!=null)
-            {
-                temp=temp.next;
-            }
-            ListNode end=temp.next;
-            temp.next=null;
-            end.next=head;
-            head=end;
+        k=length-k;
+        for(int i=0;i<k-1;i++){
+           temp=temp.next;
         }
+        head=temp.next;
+        temp.next=null;
 
         return head;
     }
