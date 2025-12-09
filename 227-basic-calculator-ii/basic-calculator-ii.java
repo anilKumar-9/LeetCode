@@ -11,7 +11,7 @@ class Solution {
             {
                 currentNumber=currentNumber*10+(ch-'0');
             }
-           if((ch=='+'||ch=='-'||ch=='*'||ch=='/')||(i==n-1))
+           if((!Character.isDigit(ch) && ch != ' ')||(i==n-1))
             {
                 if(operator=='+')
                 {
