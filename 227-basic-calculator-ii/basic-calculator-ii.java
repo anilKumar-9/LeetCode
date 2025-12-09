@@ -2,7 +2,7 @@ class Solution {
     public int calculate(String s) {
 
          if (s == null || s.length() == 0) return 0;
-         
+
         Stack<Integer> st=new Stack<>();
         int n =s.length();
         int currentNumber=0;
@@ -40,7 +40,6 @@ class Solution {
         while(!st.isEmpty())
         {
             res+=st.pop();
-            System.out.println(res);
         }
         return res;
     }
