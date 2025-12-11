@@ -16,27 +16,31 @@
 class Solution {
     public String smallestFromLeaf(TreeNode root) {
         ArrayList<String> list = new ArrayList<>();
-        preOrder(root,"",list);
+        StringBuilder sb=new StringBuilder();
+        preOrder(root,sb,list);
         Collections.sort(list);
         return list.get(0);
     }
 
-    static void preOrder(TreeNode root,String str,ArrayList<String> list)
+    static void preOrder(TreeNode root,StringBuilder str,ArrayList<String> list)
     {
         if(root==null)
         {
             return ;
         }
+        str.insert(0,(char)(root.val+'a'));
         if(root.left==null&&root.right==null)
         {
-            str=(char)(root.val+'a')+str;
-            list.add(str);
+            list.add(new String(str));
+            str.deleteCharAt(0);
             return ;
         }
         else
         {
-            preOrder(root.left,(char)(root.val+'a')+str,list);
-            preOrder(root.right,(char)(root.val+'a')+str,list);
+            preOrder(root.left,str,list);
+            preOrder(root.right,str,list);
         }
+
+        str.deleteCharAt(0);
     }
 }
