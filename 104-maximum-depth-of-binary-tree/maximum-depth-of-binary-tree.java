@@ -15,10 +15,18 @@
  */
 class Solution {
     public int maxDepth(TreeNode root) {
+        return postOrder(root);
+    }
+    static int postOrder(TreeNode root)
+    {
         if(root==null)
         {
             return 0;
         }
-       return 1+Math.max(maxDepth(root.left),maxDepth(root.right));
+
+        int left=postOrder(root.left);
+        int right=postOrder(root.right);
+
+        return 1+Math.max(left,right);
     }
 }
