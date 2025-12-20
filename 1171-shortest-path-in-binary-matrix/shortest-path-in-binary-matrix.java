@@ -1,49 +1,45 @@
 class Solution {
     public int shortestPathBinaryMatrix(int[][] grid) {
-        if(grid[0][0]!=0)
+        int n=grid.length;
+
+        if(n==1&&grid[0][0]==0)
+        {
+            return 1;
+        }
+        if(grid[0][0]==1||grid[n-1][n-1]==1)
         {
             return -1;
         }
-      int n=grid.length;
-      int [][] dis=new int[n][n];
+        Queue<int []> queue=new LinkedList<>();
+        queue.offer(new int[] {0,0});
+        int level=1;
+        
 
-      for(int i=0;i<n;i++) 
-      {
-            Arrays.fill(dis[i],Integer.MAX_VALUE);
-      } 
+        int [][] directions={{1,0},{0,1},{-1,0},{0,-1},{-1,-1},{-1,1},{1,1},{1,-1}};
 
-      dis[0][0]=1;
-
-      Queue<int []> q=new LinkedList<>();
-
-      q.offer(new int[]{0,0});
-
-      while(!q.isEmpty())
-      {
-        int []values=q.poll();
-        int row=values[0];
-        int col=values[1];
-
-        for(int i=-1;i<=1;i++)
+        while(!queue.isEmpty())
         {
-            for(int j=-1;j<=1;j++)
+            level++;
+            int size=queue.size();
+            for(int i=0;i<size;i++)
             {
-                if(i==0&&j==0)
-                {
-                    continue;
-                }
-                    int newRow=row+i;
-                    int newCol=col+j;
-                    if(newRow>=0&&newCol>=0&&newRow<n&&newCol<n&&dis[row][col]+1<dis[newRow][newCol]&&grid[newRow][newCol]==0)
-                    {
-                        dis[newRow][newCol]=dis[row][col]+1;
-                        q.offer(new int[]{newRow,newCol});
-                    }
                 
+                int []values=queue.poll();
+                for(int [] direction:directions)
+                {
+                    int nr=direction[0]+values[0];
+                    int nc=direction[1]+values[1];
+
+                    if(nr>=0&&nr<n&&nc>=0&&nc<n&&grid[nr][nc]==0)
+                    {
+                        grid[nr][nc]=level;
+                        queue.offer(new int[]{nr,nc});
+                    }
+                }
             }
+            
         }
 
-      }
-    return dis[n-1][n-1]==Integer.MAX_VALUE?-1:dis[n-1][n-1];
+        return grid[n-1][n-1]==0?-1:grid[n-1][n-1];
     }
 }
