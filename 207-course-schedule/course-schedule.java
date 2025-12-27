@@ -1,60 +1,55 @@
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        ArrayList<ArrayList<Integer>> adjList=convertToAdjList(prerequisites,numCourses);
-        boolean vis[]=new boolean[numCourses];
-        boolean pathNode[]=new boolean[numCourses];
+        boolean[] parent=new boolean[numCourses];
+        boolean[] visited=new boolean[numCourses];
+        ArrayList<ArrayList<Integer>> adjList=new ArrayList<>();
+
         for(int i=0;i<numCourses;i++)
         {
-            if(!vis[i])
+            adjList.add(new ArrayList<>());
+        }
+
+        for(int i=0;i<prerequisites.length;i++)
+        {
+            adjList.get(prerequisites[i][0]).add(prerequisites[i][1]);
+        }
+
+        for(int i=0;i<numCourses;i++)
+        {
+            if(!visited[i])
             {
-                if(DFS(adjList,vis,pathNode,i)==false)
+                if(!dfs(adjList,visited,parent,i))
                 {
                     return false;
+
                 }
             }
-
         }
         return true;
     }
 
-    static ArrayList<ArrayList<Integer>> convertToAdjList(int [][] prerequisites,int numCourses)
+    static boolean dfs(ArrayList<ArrayList<Integer>> adjList, boolean [] parent,boolean [] visited,int index)
     {
-         ArrayList<ArrayList<Integer>> adjList=new ArrayList<>();
-         for(int i=0;i<numCourses;i++)
-         {
-            adjList.add(new ArrayList<>());
-         }
-         for(int [] pre:prerequisites)
-         {
-            int u=pre[0],v=pre[1];
-            adjList.get(u).add(v);
-         }
-         return adjList;
-    }
-static boolean DFS( ArrayList<ArrayList<Integer>> adjList,boolean []vis,boolean []pathNode,int Node)
-{
-    if(vis[Node]==false)
-    {
-        vis[Node]=true;
-        pathNode[Node]=true;
-    }
-    for(int it: adjList.get(Node))
-    {
-        if(vis[it]==false)
-        {
-            if(DFS(adjList,vis,pathNode,it)==false)
-            {
-                return false;
-            }
+        parent[index]=true;
+        visited[index]=true;
 
-            
-        }
-        else if(pathNode[it]==true)
+        for(int it:adjList.get(index))
+        {
+            if(!visited[it])
+            {
+                if(!dfs(adjList,parent,visited,it))
+                {
+                    return false;
+                }
+
+            }
+            else if(parent[it]==true)
             {
                 return false;
             }
+        }
+        parent[index]=false;
+        return true;
     }
-    pathNode[Node]=false;
-    return true;
-} 
- }
+
+}
