@@ -1,37 +1,37 @@
 class Solution {
-    public int coinChange(int[] coins, int amount) {
-       int []coinIndex=new int[amount+1];
-       Arrays.fill(coinIndex,-2);
-       return minimumCoins(coins,amount,coinIndex);
+    public int coinChange(int[] coins, int sum) {
+        
+        int n = coins.length;
+        int[][] dp = new int[n][sum + 1];
+
+        for (int[] row : dp) {
+            Arrays.fill(row, -1);
+        }
+
+        int ans = solve(coins, sum, n - 1, dp);
+        return ans >= 1e9 ? -1 : ans;
     }
 
-    static int minimumCoins(int []coins,int amount,int []coinIndex)
-    {
-        if(amount==0)
-        {
-            return 0;
+    static int solve(int[] coins, int sum, int n, int[][] dp) {
+
+        if (sum == 0) return 0;
+
+        if (n == 0) {
+            if (sum % coins[0] == 0)
+                return sum / coins[0];
+            else
+                return (int)1e9;
         }
 
-        if(amount<0)
-        {
-            return -1;
+        if (dp[n][sum] != -1) return dp[n][sum];
+
+        int notTake = solve(coins, sum, n - 1, dp);
+
+        int take = (int)1e9;
+        if (coins[n] <= sum) {
+            take = 1 + solve(coins, sum - coins[n], n, dp);
         }
 
-        if(coinIndex[amount]!=-2)
-        {
-            return coinIndex[amount];
-        }
-        int mini=Integer.MAX_VALUE;
-
-        for(int coin:coins)
-        {
-            int res=minimumCoins(coins,amount-coin,coinIndex);
-
-            if(res>=0&&res<mini)
-            {
-                mini=res+1;
-            }
-        }
-        return coinIndex[amount]=mini==Integer.MAX_VALUE?-1:mini;
+        return dp[n][sum] = Math.min(take, notTake);
     }
 }
