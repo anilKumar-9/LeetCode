@@ -1,45 +1,24 @@
 class Solution {
     public int maximumSum(int[] nums) {
         int n=nums.length;
-        PriorityQueue<Integer> [] digitSums= new PriorityQueue[82];
-        for(int i=0;i<82;i++)
+        int []maxDigits=new int[82];
+        int result=-1;
+        for(int element:nums)
         {
-            digitSums[i]=new PriorityQueue<>();
-        }
-
-        for(int i=0;i<n;i++)
-        {
-            int sum=digitSum(nums[i]);
-            digitSums[sum].add(nums[i]);
-
-            if(digitSums[sum].size()>2)
+            int digit=0;
+            for(int i=element;i>0;i=i/10)
             {
-                digitSums[sum].poll();
+                digit+=i%10;
             }
 
-        }
-        int max=-1;
-
-        for(PriorityQueue<Integer> minHeap:digitSums)
-        {
-            if(minHeap.size()==2)
+            if(maxDigits[digit]>0)
             {
-                int first=minHeap.poll();
-                int second=minHeap.poll();
-                max=Math.max(max,first+second);
+                result=Math.max(maxDigits[digit]+element,result);
             }
-        }
-        return max;
-    }
 
-    static int digitSum(int num)
-    {
-        int sum=0;
-        while(num>0)
-        {
-            sum+=num%10;
-            num/=10;
+            maxDigits[digit]=Math.max(maxDigits[digit],element);
         }
-        return sum;
+
+        return result;
     }
 }
