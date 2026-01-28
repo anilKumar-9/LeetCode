@@ -3,7 +3,6 @@ class Solution {
         Arrays.sort(nums);
         int first=binarySearch(nums,target,true);
         int last=binarySearch(nums,target,false);
-        System.out.println(first+" "+last);
         List<Integer> list=new ArrayList<>();
         if(first!=-1)
         {
