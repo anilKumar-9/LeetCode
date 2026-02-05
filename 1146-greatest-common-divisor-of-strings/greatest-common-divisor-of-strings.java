@@ -20,7 +20,7 @@ class Solution {
         }
         String base=str1.substring(0,i);
 
-        return str1.replaceAll(base,"").isEmpty()&&
-                str2.replaceAll(base,"").isEmpty();
+        return str1.replace(base,"").isEmpty()&&
+                str2.replace(base,"").isEmpty();
     }
 }
