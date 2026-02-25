@@ -4,8 +4,39 @@ class Solution {
         {
             return true;
         }
+        ArrayList<ArrayList<Integer>> adjList=createAdjList(edges,n);
+       
+        boolean[] visited=new boolean[n];
+
+        return dfs(adjList,source,destination,visited);
+    }
+
+    static boolean dfs(ArrayList<ArrayList<Integer>> adjList, int src, int dis , boolean[] vis)
+    {
+        if(src==dis)
+        {
+            return true;
+        }
+        vis[src]=true;
+
+        for(int neighbour:adjList.get(src))
+        {
+            if(!vis[neighbour])
+            {
+                if(dfs(adjList,neighbour,dis,vis))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    static ArrayList<ArrayList<Integer>> createAdjList(int[][] edges 
+                                                       ,int V)
+    {
         ArrayList<ArrayList<Integer>> adjList=new ArrayList<>();
-        for(int i=0;i<n;i++)
+        for(int i=0;i<V;i++)
         {
             adjList.add(new ArrayList<>());
         }
@@ -17,27 +48,7 @@ class Solution {
             adjList.get(u).add(v);
             adjList.get(v).add(u);
         }
-        boolean[] visited=new boolean[n];
-        Queue<Integer> queue=new LinkedList<>();
-        queue.offer(source);
-        visited[source]=true;
-        while(!queue.isEmpty())
-        {
-            int popElement=queue.poll();
-            if(popElement==destination)
-            {
-                return true;
-            }
-            for(int neighbour: adjList.get(popElement))
-            {
-                if(!visited[neighbour])
-                {
-                    visited[neighbour]=true;
-                    queue.offer(neighbour);
-                }
-            }
-        }
 
-        return false;
+        return adjList;
     }
 }
