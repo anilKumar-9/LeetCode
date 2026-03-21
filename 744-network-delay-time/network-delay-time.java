@@ -23,6 +23,7 @@ class Solution {
             int distance=currentPair.distance;
             int currentNode=currentPair.node;
 
+            if (distance > currentDistance[currentNode]) continue;
 
             for(Pair nbr: adjList.get(currentNode))
             {
