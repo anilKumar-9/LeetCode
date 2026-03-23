@@ -27,6 +27,10 @@ class Solution {
             int effort=values[0];
             int row=values[1];
             int col=values[2];
+            if(effort>dis[row][col])
+            {
+                continue;
+            }
             for(int [] distance: distances)
             {
                 int nr=row+distance[0];
