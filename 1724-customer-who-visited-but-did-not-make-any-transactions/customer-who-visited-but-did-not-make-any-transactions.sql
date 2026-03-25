@@ -10,5 +10,3 @@ FROM
 WHERE 
     t.transaction_id is NULL
 GROUP BY v.customer_id
-
-ORDER BY v.customer_id;
